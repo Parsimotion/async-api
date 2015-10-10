@@ -1,6 +1,4 @@
-azure = require("azure-storage")
-Promise = require("bluebird")
-Promise.promisifyAll azure
+service = require("./azureQueueService")
 
 module.exports = (request, response) =>
   console.log new Date()
@@ -8,10 +6,7 @@ module.exports = (request, response) =>
   console.log "----------"
 
   enqueue = (message) =>
-    service = azure.createQueueService process.env.STORAGE_NAME, process.env.STORAGE_KEY
-
-    service.createQueueIfNotExistsAsync process.env.QUEUE_NAME
-    .then -> service.createMessageAsync process.env.QUEUE_NAME, JSON.stringify(message)
+    service.createMessageAsync process.env.QUEUE_NAME, JSON.stringify(message)
 
 ##########################
 
