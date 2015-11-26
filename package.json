@@ -9,7 +9,7 @@
   "main": "main.js",
   "dependencies": {
     "coffee-script": "^1.8.0",
-    "lodash": "^3.6.0",
+    "lodash": "^3.10.0",
     "azure-storage": "~0.6.0",
     "bluebird": "~2.10.1"
   },
@@ -18,5 +18,8 @@
   },
   "scripts": {
     "start": "node main.js"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }
