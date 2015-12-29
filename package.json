@@ -12,7 +12,7 @@
     "lodash": "^3.10.0",
     "azure-storage": "~0.6.0",
     "bluebird": "~2.10.1",
-    "massive-operations-webjob": "^0.0.3"
+    "massive-operations-webjob": "*"
   },
   "engines": {
     "node": ">=0.10.0"
