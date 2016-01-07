@@ -18,6 +18,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "preinstall": "npm uninstall massive-operations-webjob",
     "start": "node main.js"
   },
   "devDependencies": {
