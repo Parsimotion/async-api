@@ -3,9 +3,8 @@ service = require("./azureQueueService")
 
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
-
-  service.createMessageAsync process.env.QUEUE_NAME, JSON.stringify message
-
+  queue = if message.headers.job? then process.env.JOBS_QUEUE_NAME else process.env.REQUESTS_QUEUE_NAME
+  service.createMessageAsync queue, JSON.stringify message
 
 module.exports = (request, response) =>
   console.log new Date()
