@@ -3,7 +3,7 @@ service = require("./azureQueueService")
 
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
-  queue = if message.headers.job? then (process.env.JOBS_QUEUE_NAME or "jobs") else (process.env.REQUESTS_QUEUE_NAME or "requests")
+  queue = if message.headers.job? then process.env.JOBS_QUEUE else process.env.REQUESTS_QUEUE
   service.createMessageAsync queue, JSON.stringify message
 
 module.exports = (request, response) =>
