@@ -4,7 +4,7 @@ var JobMessageProcessor = require('massive-operations-webjob/src/jobMessageProce
 tracker.wrapCounterAndTimerOverCallback(JobMessageProcessor, "process", "jobs");
 
 var MessageFlowBalancer = require('massive-operations-webjob/src/messageFlowBalancer');
-tracker.wrapCounterOverMethod(MessageFlowBalancer, "_asyncPush", "jobs");
+tracker.wrapCounterOverMethod(MessageFlowBalancer, "_asyncPush", "jobs"); 
 
 var job = require('massive-operations-webjob');
 
