@@ -11,7 +11,7 @@
     "async": "^1.5.2",
     "azure-storage": "~0.6.0",
     "bluebird": "~2.10.1",
-    "coffee-redis-tracker": "0.0.0",
+    "coffee-redis-tracker": "0.0.1",
     "coffee-script": "^1.8.0",
     "lodash": "^3.10.0",
     "massive-operations-webjob": "git+https://git@github.com/Parsimotion/massive-operations-webjob.git"
