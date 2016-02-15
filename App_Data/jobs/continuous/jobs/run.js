@@ -4,7 +4,7 @@ var tracker = require('coffee-redis-tracker');
 
 tracker.wrapCounterAndTimerOverCallback(MessageProcessor, "process", "jobs");
 
-var options = {
+options = {
   storageName: process.env.STORAGE_NAME,
   storageKey: process.env.STORAGE_KEY,
   baseUrl: process.env.BASE_URL_API,
