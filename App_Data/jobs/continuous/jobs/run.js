@@ -1,6 +1,10 @@
 var job = require('massive-operations-webjob');
+var MessageProcessor = require('massive-operations-webjob/src/messageProcessor');
+var tracker = require('coffee-redis-tracker');
 
-options = {
+tracker.wrapCounterAndTimerOverCallback(MessageProcessor, "process", "jobs");
+
+var options = {
   storageName: process.env.STORAGE_NAME,
   storageKey: process.env.STORAGE_KEY,
   baseUrl: process.env.BASE_URL_API,
