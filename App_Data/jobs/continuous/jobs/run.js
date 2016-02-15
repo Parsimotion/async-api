@@ -1,7 +1,10 @@
 require("coffee-script/register");
-var tracker = require('coffee-redis-tracker');
-var JobMessageProcessor = require('massive-operations-webjob/src/jobMessageProcessor');
-tracker.wrapCounterAndTimerOverCallback(JobMessageProcessor, "process", "jobs");
+
+try {
+  var tracker = require('coffee-redis-tracker');
+  var JobMessageProcessor = require('massive-operations-webjob/src/jobMessageProcessor');
+  tracker.wrapCounterAndTimerOverCallback(JobMessageProcessor, "process", "jobs");
+} catch (e) { console.log(e); } finally { }
 
 var job = require('massive-operations-webjob');
 
