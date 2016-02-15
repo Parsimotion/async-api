@@ -3,6 +3,9 @@ var tracker = require('coffee-redis-tracker');
 var JobMessageProcessor = require('massive-operations-webjob/src/jobMessageProcessor');
 tracker.wrapCounterAndTimerOverCallback(JobMessageProcessor, "process", "jobs");
 
+var MessageFlowBalancer = require('massive-operations-webjob/src/messageFlowBalancer');
+tracker.wrapCounterOverMethod(MessageFlowBalancer, "_asyncPush", "jobs");
+
 var job = require('massive-operations-webjob');
 
 options = {
