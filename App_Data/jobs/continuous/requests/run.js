@@ -12,4 +12,8 @@ options = {
   jobsQueue: false
 };
 
+process.on('uncaughtException',function(err){
+  console.log("Caught exception: ", err);
+});
+
 job.run(options);

@@ -12,6 +12,10 @@ options = {
   jobsQueue: true
 };
 
+process.on('uncaughtException',function(err){
+  console.log("Caught exception: ", err);
+});
+
 if (process.env.JOBS_QUEUE) {
 	job.run(options);
 }
