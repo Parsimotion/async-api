@@ -7,9 +7,9 @@ Promise = require("bluebird")
 module.exports = =>  
   port = process.env.PORT || 8081
 
-  promise = if process.env.JOBS_QUEUE then service.createQueueIfNotExistsAsync(process.env.JOBS_QUEUE) else Promise.resolve()
-  promise.then ->
-    service.createQueueIfNotExistsAsync(process.env.REQUESTS_QUEUE).then -> 
+  promise = if process.env.JOBS_QUEUE then service.createQueueAsync(process.env.JOBS_QUEUE) else Promise.resolve()
+  promise.finally ->
+    service.createQueueAsync(process.env.REQUESTS_QUEUE).finally -> 
       http.createServer (request, response) =>
         data = ""
         request.on "data", (chunk) => data += chunk
