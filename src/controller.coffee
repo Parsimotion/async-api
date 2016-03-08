@@ -1,9 +1,23 @@
 Promise = require("bluebird")
 service = require("./azureQueueService")
+Redis = require('ioredis')
+redis = new Redis
+  port: process.env.REDIS_PORT
+  host: process.env.REDIS_HOST
+  family: 4
+  password: process.env.REDIS_AUTH
+  db: 0
+
+increaseJobTotalCount = (jobId) ->
+  redis.pipeline().incr(jobId).exec (err, results) ->
 
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
-  queue = if message.headers.job? then process.env.JOBS_QUEUE else process.env.REQUESTS_QUEUE
+  if message.headers.job?
+    increaseJobTotalCount message.headers.job
+    queue = process.env.JOBS_QUEUE
+  else
+    queue = process.env.REQUESTS_QUEUE
   service.putMessageAsync queue, message
 
 module.exports = (request, response) =>
