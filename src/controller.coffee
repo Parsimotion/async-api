@@ -23,7 +23,7 @@ processMessage = (message) ->
     queue = process.env.REQUESTS_QUEUE
   service.putMessageAsync queue, message
 
-module.exports = (request, response) =>
+processRequest = (request, response, retries = 0) =>
   processMessage request
   .then ->
     console.log new Date(), "OK"
@@ -32,6 +32,7 @@ module.exports = (request, response) =>
     response.writeHead 200
     response.end()
   .catch (err) ->
+    return processRequest(request, response, retries + 1) if retries < 10
     console.log new Date(), "ERROR"
     console.log JSON.stringify request
     console.log "----------"
@@ -39,3 +40,5 @@ module.exports = (request, response) =>
     console.log ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     response.writeHead (err.statusCode or 500)
     response.end JSON.stringify err
+
+module.exports = processRequest
