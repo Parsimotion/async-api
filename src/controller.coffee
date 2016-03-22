@@ -19,7 +19,7 @@ putJobMessage = (message) ->
 
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
-  return putJobMessage(message) if if message.headers.job?
+  return putJobMessage(message) if message.headers.job?
   service.putMessageAsync process.env.REQUESTS_QUEUE, message
 
 processRequest = (request, response, retries = 0) =>
