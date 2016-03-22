@@ -14,7 +14,10 @@ increaseJobTotalCount = (jobId) ->
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
   if message.headers.job?
-    increaseJobTotalCount message.headers.job
+    try
+      increaseJobTotalCount message.headers.job
+    catch e
+      console.log "redis error"   
     queue = process.env.JOBS_QUEUE
   else
     queue = process.env.REQUESTS_QUEUE
