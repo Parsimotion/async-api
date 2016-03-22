@@ -24,14 +24,18 @@ processMessage = (message) ->
   service.putMessageAsync queue, message
 
 module.exports = (request, response) =>
-  console.log new Date()
-  console.log JSON.stringify request
-  console.log "----------"
-
   processMessage request
   .then ->
+    console.log new Date(), "OK"
+    console.log JSON.stringify request
+    console.log "----------"
     response.writeHead 200
     response.end()
   .catch (err) ->
+    console.log new Date(), "ERROR"
+    console.log JSON.stringify request
+    console.log "----------"
+    console.log err
+    console.log ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     response.writeHead (err.statusCode or 500)
     response.end JSON.stringify err
