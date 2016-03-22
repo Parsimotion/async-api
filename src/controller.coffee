@@ -10,8 +10,8 @@ redis = new Redis
 
 increaseJobTotalCount = (jobId) ->
   new Promise (resolve) ->
-    redis.pipeline().incr(jobId).exec (err, results) ->
-      resolve()
+    # redis.pipeline().incr(jobId).exec (err, results) ->
+    resolve()
 
 putJobMessage = (message) ->
   increaseJobTotalCount(message.headers.job).then ->
