@@ -9,19 +9,18 @@ redis = new Redis
   db: 0
 
 increaseJobTotalCount = (jobId) ->
-  redis.pipeline().incr(jobId).exec (err, results) ->
+  new Promise (resolve) ->
+    redis.pipeline().incr(jobId).exec (err, results) ->
+      resolve()
+
+putJobMessage = (message) ->
+  increaseJobTotalCount(message.headers.job).then ->
+    service.putMessageAsync process.env.JOBS_QUEUE, message
 
 processMessage = (message) ->
   return Promise.resolve() if message.method is "GET"
-  if message.headers.job?
-    try
-      increaseJobTotalCount message.headers.job
-    catch e
-      console.log "redis error"   
-    queue = process.env.JOBS_QUEUE
-  else
-    queue = process.env.REQUESTS_QUEUE
-  service.putMessageAsync queue, message
+  return putJobMessage(message) if if message.headers.job?
+  service.putMessageAsync process.env.REQUESTS_QUEUE, message
 
 processRequest = (request, response, retries = 0) =>
   processMessage request
