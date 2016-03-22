@@ -33,5 +33,5 @@ module.exports = (request, response) =>
     response.writeHead 200
     response.end()
   .catch (err) ->
-    response.writeHead err.statusCode, { "Content-Type": "application/json" }
+    response.writeHead (err.statusCode or 500)
     response.end JSON.stringify err
